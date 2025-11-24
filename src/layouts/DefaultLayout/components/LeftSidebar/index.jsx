@@ -24,7 +24,7 @@ function LeftSidebar() {
   ];
 
   return (
-    <div className="hidden md:flex flex-col items-center w-18 fixed left-0 top-0 h-screen bg-background z-40">
+    <div className="hidden md:flex flex-col items-center w-18 fixed left-0 top-0 h-screen  z-100  ">
       {/* Logo ở top */}
       <div className="w-full flex justify-center lg:justify-start  ">
         <NavLink to="/" className="flex items-center justify-end p-4  gap-3">
@@ -81,7 +81,7 @@ function LeftSidebar() {
                 >
                   <Icon
                     className={cn(
-                      "w-6 h-6 shrink-0",
+                      "w-6 h-6 shrink-0  ",
                       isActive && path === "/" && "fill-current"
                     )}
                   />

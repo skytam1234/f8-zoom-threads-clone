@@ -15,7 +15,7 @@ function Navigator() {
   ];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background mb-1">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-63 bg-background mb-1">
       <div className="max-w-full mx-auto px-2">
         <div className="flex items-center justify-around h-9 gap-1">
           {navItems.map(({ icon: Icon, path }, index) => {
