@@ -38,7 +38,7 @@ function Post({
     },
 }) {
     return (
-        <div className="w-full border-t border-border pb-4">
+        <div className="w-full border-b border-border pb-4">
             {/* Grid Container */}
             <div className="grid grid-cols-[40px_1fr] grid-rows-[auto_auto_auto_auto_auto] gap-2 px-4 py-3">
                 {/* Avatar ở hàng 1 cột 1 */}
@@ -62,7 +62,6 @@ function Post({
                         </Avatar>
                     </div>
                 </div>
-
                 {/* Username + timestamp + more button ở hàng 2 cột 2 */}
                 <div className="row-start-1 col-start-2 flex items-center gap-2 justify-between">
                     <div className="flex items-center gap-2 min-w-0">

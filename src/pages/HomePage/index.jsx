@@ -130,8 +130,8 @@ function HomePage() {
             </div>
             {/* Create Post Section */}
 
-            <div className="hidden md:block  px-4 py-4">
-                <div className="flex items-start gap-3">
+            <div className="hidden md:block  px-4 py-4 border-b ">
+                <div className="flex items-start gap-3 py-4">
                     <Avatar className="w-10 h-10">
                         <AvatarImage
                             src="https://github.com/shadcn.png"

@@ -6,13 +6,12 @@ import RightSidebar from "./components/RightSidebar";
 
 function DefaultLayout() {
     return (
-        <div className="min-h-screen bg-layout-background">
+        <div className="min-h-screen bg-layout-background ">
             <Header />
-
             <div className="flex h-screen overflow-hidden">
                 <LeftSidebar />
                 <main className=" w-full sm:w-[640px] bg-layout-main  mx-auto min-w-0 mt-20 sm:rounded-t-2xl sm:border-2 shadow-sm z-60 overflow-hidden ">
-                    <div className="fixed inset-0 bg-transparent overflow-y-auto z-61 mt-20 ">
+                    <div className="fixed inset-0 bg-transparent overflow-y-auto z-61 mt-20 ml-[13px] flex justify-center ">
                         <Outlet />
                     </div>
                 </main>
