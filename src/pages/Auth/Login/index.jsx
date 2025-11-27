@@ -2,18 +2,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
-
+import { useForm } from "react-hook-form";
 function Login() {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle login logic here
-    console.log("Login:", formData);
-  };
+  const { register, handleSubmit } = useForm();
 
   const handleChange = (e) => {
     setFormData({
