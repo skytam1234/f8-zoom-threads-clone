@@ -1,3 +1,4 @@
+import AuthLayout from "@/layouts/AuthLayout";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Login from "@/pages/Auth/Login";
 
@@ -16,7 +17,9 @@ function AppRoute() {
                     <Route path="/search" element={<SearchPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
                 </Route>
-                <Route path="/login" element={<Login />} />
+                <Route element={<AuthLayout />}>
+                    <Route path="/login" element={<Login />} />
+                </Route>
             </Routes>
         </Router>
     );

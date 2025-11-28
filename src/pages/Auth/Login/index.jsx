@@ -1,165 +1,134 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
+
 import { useForm } from "react-hook-form";
+
 function Login() {
-  const { register, handleSubmit } = useForm();
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+    const { register, handleSubmit } = useForm({
+        defaultValues: {
+            username: "",
+            password: "",
+        },
     });
-  };
 
-  return (
-    <div className="min-h-screen bg-transparent flex flex-col relative">
-      {/* Header Pattern */}
-      <div className="absolute w-full h-[50%] overflow-hidden bg-transparent">
-        <div className="absolute inset-0 flex items-center justify-center gap-2 overflow-hidden bg-transparent">
-          <div className="bg-transparent text-background px-6 py-2 w-full h-full text-xs font-bold whitespace-nowrap">
-            <img
-              className="w-full h-full bg-transparent"
-              alt="bg"
-              src="https://static.cdninstagram.com/rsrc.php/yC/r/JlaY6JCPfe-.avif"
-            />
-          </div>
-        </div>
-      </div>
+    const submit = (data) => {
+        console.log(data);
+    };
 
-      {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center px-4 py-8">
-        <div className="w-full max-w-md">
-          {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <h1 className="text-2xl font-bold text-foreground mb-6 text-center">
-              Đăng nhập bằng tài khoản Instagram
-            </h1>
-
-            {/* Username/Email/Phone Input */}
-            <Input
-              type="text"
-              name="username"
-              placeholder="Tên người dùng, số điện thoại hoặc email"
-              value={formData.username}
-              onChange={handleChange}
-              className="bg-muted border-border"
-            />
-
-            {/* Password Input */}
-            <Input
-              type="password"
-              name="password"
-              placeholder="Mật khẩu"
-              value={formData.password}
-              onChange={handleChange}
-              className="bg-muted border-border"
-            />
-
-            {/* Login Button */}
-            <Button
-              type="submit"
-              className="w-full bg-black text-white hover:bg-black/90 h-10"
-            >
-              Đăng nhập
-            </Button>
-
-            {/* Forgot Password Link */}
-            <div className="text-center">
-              <button
-                type="button"
-                className="text-sm text-foreground hover:underline"
-              >
-                Quên mật khẩu?
-              </button>
-            </div>
-
-            {/* Separator */}
-            <div className="relative flex items-center py-4">
-              <div className="flex-1 border-t border-border"></div>
-              <span className="px-4 text-sm text-muted-foreground bg-background">
-                hoặc
-              </span>
-              <div className="flex-1 border-t border-border"></div>
-            </div>
-
-            {/* Continue with Instagram Button */}
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full border-foreground/20 hover:bg-accent h-10"
-            >
-              <div className="flex items-center justify-center gap-3">
-                {/* Instagram Logo */}
-                <svg
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
-                  fill="url(#instagram-gradient)"
-                >
-                  <defs>
-                    <linearGradient
-                      id="instagram-gradient"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="100%"
+    return (
+        <div className="min-h-screen bg-transparent flex flex-col relative mt-20 ">
+            <div className="flex items-center justify-center px-4 py-8">
+                <div className="w-full max-w-md">
+                    {/* Login Form */}
+                    <form
+                        onSubmit={handleSubmit(submit)}
+                        className="space-y-4 p-4"
                     >
-                      <stop offset="0%" stopColor="#f09433" />
-                      <stop offset="25%" stopColor="#e6683c" />
-                      <stop offset="50%" stopColor="#dc2743" />
-                      <stop offset="75%" stopColor="#cc2366" />
-                      <stop offset="100%" stopColor="#bc1888" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
-                <span className="font-medium">Tiếp tục bằng Instagram</span>
-                <ArrowRight className="w-4 h-4" />
-              </div>
-            </Button>
-          </form>
-        </div>
-      </div>
+                        <h1 className="text-2xl font-bold text-foreground mb-6 text-center">
+                            Đăng nhập bằng tài khoản Instagram
+                        </h1>
 
-      {/* Footer and QR Code */}
-      <div className="relative w-full pb-8 px-4">
-        {/* QR Code - Bottom Right */}
-        <div className="absolute bottom-8 right-4 flex flex-col items-center">
-          <div className="bg-white p-4 rounded-lg border border-border shadow-sm">
-            {/* QR Code Placeholder - Replace with actual QR code */}
-            <div className="w-32 h-32 bg-muted border-2 border-dashed border-border flex items-center justify-center">
-              <span className="text-xs text-muted-foreground text-center px-2">
-                QR Code
-              </span>
+                        {/* Username/Email/Phone Input */}
+                        <Input
+                            type="text"
+                            {...register("username")}
+                            placeholder="Tên người dùng, số điện thoại hoặc email"
+                            className="bg-muted border-border p-4 w-full h-[55px] sm:w-[370px]"
+                        />
+
+                        {/* Password Input */}
+                        <Input
+                            type="password"
+                            placeholder="Mật khẩu"
+                            {...register("password")}
+                            className="bg-muted border-border p-4 h-[55px] w-full sm:w-[370px]"
+                        />
+
+                        {/* Login Button */}
+                        <Button
+                            type="submit"
+                            className="p-4 h-[55px] w-full sm:w-[370px] bg-black text-white hover:bg-black/90 "
+                        >
+                            Đăng nhập
+                        </Button>
+
+                        {/* Forgot Password Link */}
+                        <div className="text-center">
+                            <button
+                                type="button"
+                                className="text-sm text-foreground hover:underline"
+                            >
+                                Quên mật khẩu?
+                            </button>
+                        </div>
+
+                        {/* Separator */}
+                        <div className="relative flex items-center py-4">
+                            <div className="flex-1 border-t border-border"></div>
+                            <span className="px-4 text-sm text-muted-foreground bg-background">
+                                hoặc
+                            </span>
+                            <div className="flex-1 border-t border-border"></div>
+                        </div>
+
+                        {/* Continue with Instagram Button */}
+                        <Button
+                            type="button"
+                            variant="outline"
+                            className="w-full border-foreground/20 hover:bg-accent h-10"
+                        >
+                            <div className="flex items-center justify-center gap-3">
+                                {/* Instagram Logo */}
+                                <svg
+                                    className="w-5 h-5"
+                                    viewBox="0 0 24 24"
+                                    fill="url(#instagram-gradient)"
+                                >
+                                    <defs>
+                                        <linearGradient
+                                            id="instagram-gradient"
+                                            x1="0%"
+                                            y1="0%"
+                                            x2="100%"
+                                            y2="100%"
+                                        >
+                                            <stop
+                                                offset="0%"
+                                                stopColor="#f09433"
+                                            />
+                                            <stop
+                                                offset="25%"
+                                                stopColor="#e6683c"
+                                            />
+                                            <stop
+                                                offset="50%"
+                                                stopColor="#dc2743"
+                                            />
+                                            <stop
+                                                offset="75%"
+                                                stopColor="#cc2366"
+                                            />
+                                            <stop
+                                                offset="100%"
+                                                stopColor="#bc1888"
+                                            />
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg>
+                                <span className="font-medium">
+                                    Tiếp tục bằng Instagram
+                                </span>
+                                <ArrowRight className="w-4 h-4" />
+                            </div>
+                        </Button>
+                    </form>
+                </div>
             </div>
-          </div>
-          <p className="text-xs text-muted-foreground mt-2 text-center">
-            Quét để tải ứng dụng
-          </p>
+            {/* Footer and QR Code */}
         </div>
-
-        {/* Footer - Bottom Left */}
-        <div className="absolute bottom-8 left-4 text-xs text-muted-foreground">
-          <div className="flex flex-wrap gap-2">
-            <span>© 2025</span>
-            <a href="#" className="hover:underline">
-              Điều khoản của Threads
-            </a>
-            <a href="#" className="hover:underline">
-              Chính sách quyền riêng tư
-            </a>
-            <a href="#" className="hover:underline">
-              Chính sách cookie
-            </a>
-            <a href="#" className="hover:underline">
-              Báo cáo sự cố
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Login;
