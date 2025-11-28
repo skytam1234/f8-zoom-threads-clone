@@ -1,40 +1,33 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
-import { getCurrentUser, login } from "@/services/auth/authService";
-import { useForm } from "react-hook-form";
-import { useNavigate, useSearchParams } from "react-router";
-import { useDispatch } from "react-redux";
-import { useCurrentUser } from "@/features/auth/hooks";
-import { useEffect } from "react";
+import { register as authRegister } from "@/services/auth/authService";
 
-function Login() {
-  const { register, handleSubmit } = useForm({
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+
+function Register() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      login: "",
+      username: "",
+      email: "",
       password: "",
+      password_confirmation: "",
     },
   });
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const currentUser = useCurrentUser();
-  const [param] = useSearchParams();
-
-  useEffect(() => {
-    if (currentUser) {
-      const continuePath = param.get("continue") || "/";
-      navigate(continuePath);
-    }
-  }, [currentUser, navigate, param]);
 
   const submit = async (data) => {
-    const { access_token, refresh_token } = await login(data);
-    if (access_token) {
-      localStorage.setItem("access_token", access_token);
-      localStorage.setItem("refresh_token", refresh_token);
-      dispatch(getCurrentUser());
-      const continuePath = param.get("continue") || "/";
-      navigate(continuePath);
+    try {
+      console.log(data);
+      await authRegister(data);
+      navigate("/login");
+    } catch (er) {
+      //
     }
   };
 
@@ -51,8 +44,14 @@ function Login() {
             {/* Username/Email/Phone Input */}
             <Input
               type="text"
-              {...register("login")}
-              placeholder="Tên người dùng, số điện thoại hoặc email"
+              {...register("username")}
+              placeholder="Tên người dùng"
+              className="bg-muted border-border p-4 w-full h-[55px] sm:w-[370px]"
+            />
+            <Input
+              type="text"
+              {...register("email")}
+              placeholder="Email ..."
               className="bg-muted border-border p-4 w-full h-[55px] sm:w-[370px]"
             />
 
@@ -61,6 +60,12 @@ function Login() {
               type="password"
               placeholder="Mật khẩu"
               {...register("password")}
+              className="bg-muted border-border p-4 h-[55px] w-full sm:w-[370px]"
+            />
+            <Input
+              type="password"
+              placeholder="Mật khẩu"
+              {...register("password_confirmation")}
               className="bg-muted border-border p-4 h-[55px] w-full sm:w-[370px]"
             />
 
@@ -133,4 +138,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

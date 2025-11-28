@@ -8,3 +8,14 @@ export const getCurrentUser = createAsyncThunk(
     return res.data;
   }
 );
+export const register = async (data) => {
+  const res = await http.post("api/auth/register", data);
+  return res.data;
+};
+export const login = async (data) => {
+  const res = await http.post("/api/auth/login", data);
+  return res.data;
+};
+export const logout = async () => {
+  await http.post("/api/auth/logout");
+};

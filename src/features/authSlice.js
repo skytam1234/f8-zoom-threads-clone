@@ -7,7 +7,11 @@ const initialState = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentUser(state, action) {
+      state.currentUser = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getCurrentUser.fulfilled, (state, action) => {

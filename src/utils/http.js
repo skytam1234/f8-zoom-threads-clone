@@ -1,37 +1,17 @@
 import axios from "axios";
 
-// ============================================
-// PHẦN 1: TẠO HTTP CLIENT CƠ BẢN
-// ============================================
 //const baseURL = import.meta.env.VITE_BASE_API;
 const baseURL = "https://threads.f8team.dev";
 
-// Tạo một "công cụ gọi API" riêng cho ứng dụng của chúng ta
-// Giống như bạn có một chiếc điện thoại đã cài sẵn số hotline,
-// không cần gõ lại địa chỉ API mỗi lần gọi
 export const httpClient = axios.create({
   baseURL,
-  // baseURL: đây là địa chỉ gốc của server API (ví dụ: https://api.example.com)
-  // Các lần gọi API sau chỉ cần thêm đường dẫn phía sau (ví dụ: /users, /products)
 });
 
-// ============================================
-// PHẦN 2: TỰ ĐỘNG GẮN TOKEN VÀO MỖI REQUEST
-// ============================================
-
-// Interceptor (bộ chặn) request: chạy TRƯỚC KHI gửi bất kỳ request nào
-// Giống như người bảo vệ kiểm tra thẻ của bạn trước khi cho vào cửa
 httpClient.interceptors.request.use((config) => {
-  // Lấy accessToken từ localStorage (nơi lưu token sau khi đăng nhập)
-  const accessToken = localStorage.getItem("accessToken");
-
-  // Nếu có token, thì tự động đính kèm vào header của request
-  if (accessToken) {
-    // Format: "Bearer abc123xyz" - đây là chuẩn để gửi token
-    config.headers.set("Authorization", `Bearer ${accessToken}`);
+  const access_token = localStorage.getItem("access_token");
+  if (access_token) {
+    config.headers.set("Authorization", `Bearer ${access_token}`);
   }
-
-  // Trả về config đã được chỉnh sửa để tiếp tục gửi request
   return config;
 });
 
@@ -73,7 +53,7 @@ const refreshToken = async () => {
     });
 
     // Lưu cặp token mới vào localStorage
-    localStorage.setItem("accessToken", result.data.data.access_token);
+    localStorage.setItem("access_token", result.data.data.access_token);
     localStorage.setItem("refreshToken", result.data.data.refresh_token);
 
     // Thông báo thành công cho tất cả request đang chờ
