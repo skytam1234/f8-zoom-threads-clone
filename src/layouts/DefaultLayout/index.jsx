@@ -3,22 +3,37 @@ import Header from "./components/Header";
 import Navigator from "@/components/Navigation";
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
+import { useRef } from "react";
 
 function DefaultLayout() {
+    const scrollRef = useRef(null);
+
+    const handleWheel = (e) => {
+        if (!scrollRef.current) return;
+        scrollRef.current.scrollTop += e.deltaY;
+    };
+
     return (
-        <div className="min-h-screen bg-layout-background ">
+        <div
+            className="h-screen bg-layout-background  overflow-hidden"
+            onWheel={handleWheel}
+        >
             <Header />
-            <div className="flex h-screen overflow-hidden">
+            <div className="relative min-w-screen h-full">
                 <LeftSidebar />
-                <main className=" w-full sm:w-[640px] bg-layout-main  mx-auto min-w-0 mt-20 sm:rounded-t-2xl sm:border-2 shadow-sm z-60 overflow-hidden ">
-                    <div className="fixed inset-0 bg-transparent overflow-y-auto z-61 mt-20 ml-[13px] flex justify-center ">
+                <RightSidebar />
+                <Navigator />
+                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-full max-w-[640px]  h-[calc(100vh-80px)] sm:border-2  rounded-t-2xl overflow-hidden sm:shadow-sm">
+                    <div
+                        ref={scrollRef}
+                        className="h-full w-full scrollbar-hidden overflow-y-auto"
+                    >
                         <Outlet />
                     </div>
-                </main>
-                <RightSidebar />
+                </div>
             </div>
-            <Navigator />
         </div>
     );
 }
+
 export default DefaultLayout;

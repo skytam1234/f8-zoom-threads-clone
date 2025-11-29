@@ -112,8 +112,8 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
-    --layout-background: oklch(0.99 0 0);
-    --layout-main: oklch(1 0 0);
+    --layout-background: oklch(0.04 0.04 0.04);
+    --layout-main: oklch(0.09 0.09 0.09);
 }
 
 @layer base {
@@ -122,5 +122,15 @@
     }
     body {
         @apply bg-background text-foreground;
+    }
+}
+@layer components {
+    .scrollbar-hidden {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE & Edge cũ */
+    }
+
+    .scrollbar-hidden::-webkit-scrollbar {
+        display: none; /* Chrome, Safari */
     }
 }
