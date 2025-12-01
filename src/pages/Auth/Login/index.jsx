@@ -7,13 +7,20 @@ import { useNavigate, useSearchParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { useCurrentUser } from "@/features/auth/hooks";
 import { useEffect } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import loginSchema from "@/utils/schema/loginSchema";
 
 function Login() {
-    const { register, handleSubmit } = useForm({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
         defaultValues: {
             login: "",
             password: "",
         },
+        resolver: yupResolver(loginSchema),
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -56,6 +63,11 @@ function Login() {
                             placeholder="Tên người dùng, số điện thoại hoặc email"
                             className="bg-muted border-border p-4 w-full h-[55px] sm:w-[370px]"
                         />
+                        {errors.login && (
+                            <p className="text-red-500">
+                                {errors.login.message}
+                            </p>
+                        )}
 
                         {/* Password Input */}
                         <Input
@@ -64,6 +76,11 @@ function Login() {
                             {...register("password")}
                             className="bg-muted border-border p-4 h-[55px] w-full sm:w-[370px]"
                         />
+                        {errors.password && (
+                            <p className="text-red-500">
+                                {errors.password.message}
+                            </p>
+                        )}
 
                         {/* Login Button */}
                         <Button
@@ -96,7 +113,7 @@ function Login() {
                         <Button
                             type="button"
                             variant="outline"
-                            className="w-full border-foreground/20 hover:bg-accent h-10"
+                            className="w-full sm:w-[370px] border-foreground/20 hover:bg-accent h-10"
                         >
                             <div className="flex items-center justify-center gap-3">
                                 {/* Instagram Logo */}

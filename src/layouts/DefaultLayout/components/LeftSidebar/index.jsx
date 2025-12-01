@@ -10,11 +10,14 @@ import {
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import Modal from "@/components/Modal";
+import CreateNewPost from "@/components/CreateNewPost";
 
 function LeftSidebar() {
     const location = useLocation();
+    const [open, setOpen] = useState(false);
     const isHome = location.pathname === "/";
-
     const navItems = [
         { icon: House, path: "/", label: "Home" },
         { icon: Search, path: "/search", label: "Search" },
@@ -22,7 +25,6 @@ function LeftSidebar() {
         { icon: Heart, path: "/activity", label: "Activity" },
         { icon: User, path: "/profile", label: "Profile" },
     ];
-
     return (
         <div className="hidden md:flex flex-col items-center w-18 fixed left-0 top-0 h-screen  z-100  ">
             {/* Logo ở top */}
@@ -33,7 +35,7 @@ function LeftSidebar() {
                 >
                     <svg
                         aria-label="Threads"
-                        className="w-8 x1ypdohk x13dflua x11xpdln xk4oym4 xus2keu"
+                        className="w-8 "
                         fill="var(--barcelona-primary-icon)"
                         height="100%"
                         role="img"
@@ -57,22 +59,27 @@ function LeftSidebar() {
                                 : location.pathname.startsWith(path);
                         if (index === 2) {
                             return (
-                                <NavLink
-                                    key={path}
-                                    to={path}
+                                <div
+                                    key={index}
                                     className={cn(
-                                        "flex items-center justify-center lg:justify-start gap-3 px-4 py-2.5 rounded-lg transition-colors text-muted-foreground hover:text-foreground bg-accent"
+                                        " flex  items-center justify-center lg:justify-start gap-3   rounded-lg transition-colors text-muted-foreground hover:text-foreground bg-accent"
                                     )}
                                 >
-                                    <Icon
-                                        className={cn(
-                                            "w-6 h-6 shrink-0",
-                                            isActive &&
-                                                path === "/" &&
-                                                "fill-current"
-                                        )}
-                                    />
-                                </NavLink>
+                                    <button
+                                        onClick={() => setOpen(true)}
+                                        className="px-4 py-2"
+                                    >
+                                        <Icon className="w-6 h-6" />
+                                    </button>
+
+                                    <Modal
+                                        isOpen={open}
+                                        onClose={() => setOpen(false)}
+                                        title="Tiêu đề Modal"
+                                    >
+                                        <CreateNewPost />
+                                    </Modal>
+                                </div>
                             );
                         } else {
                             return (
