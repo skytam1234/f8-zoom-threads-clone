@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 export const useFetchCurrentUser = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCurrentUser);
+    dispatch(getCurrentUser());
   }, [dispatch]);
 };
 export const useCurrentUser = () => {
