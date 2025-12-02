@@ -15,11 +15,11 @@ function AppRoute() {
         <Router>
             <Routes>
                 <Route element={<DefaultLayout />}>
+                    <Route index element={<HomePage />} />
+                    <Route path="/search" element={<SearchPage />} />
                     <Route element={<PrivateRoute />}>
-                        <Route index element={<HomePage />} />
-                        <Route path="/search" element={<SearchPage />} />
+                        <Route path="/profile" element={<ProfilePage />} />
                     </Route>
-                    <Route path="/profile" element={<ProfilePage />} />
                 </Route>
                 <Route element={<AuthLayout />}>
                     <Route path="/login" element={<Login />} />

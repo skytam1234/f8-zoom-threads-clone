@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { useCurrentUser } from "@/features/auth/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import loginSchema from "@/utils/schema/loginSchema";
 
@@ -22,6 +22,7 @@ function Login() {
         },
         resolver: yupResolver(loginSchema),
     });
+    const [isError, setIsError] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUser = useCurrentUser();
@@ -35,11 +36,16 @@ function Login() {
     }, [currentUser, navigate, param]);
 
     const submit = async (data) => {
-        const { access_token, refresh_token } = await login(data);
-        if (access_token) {
-            localStorage.setItem("access_token", access_token);
-            localStorage.setItem("refresh_token", refresh_token);
-            dispatch(getCurrentUser());
+        try {
+            const { access_token, refresh_token } = await login(data);
+
+            if (access_token) {
+                localStorage.setItem("access_token", access_token);
+                localStorage.setItem("refresh_token", refresh_token);
+                dispatch(getCurrentUser());
+            }
+        } catch (error) {
+            setIsError(true);
         }
     };
 
@@ -79,6 +85,11 @@ function Login() {
                         {errors.password && (
                             <p className="text-red-500">
                                 {errors.password.message}
+                            </p>
+                        )}
+                        {isError && (
+                            <p className="text-red-500">
+                                Sai tài khoản hoặc mật khẩu
                             </p>
                         )}
 

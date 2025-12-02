@@ -9,7 +9,6 @@ export const httpClient = axios.create({
 
 httpClient.interceptors.request.use((config) => {
     const access_token = localStorage.getItem("access_token");
-    console.log("ac-tk", access_token);
     if (access_token) {
         config.headers.set("Authorization", `Bearer ${access_token}`);
     }
@@ -73,7 +72,6 @@ httpClient.interceptors.response.use(
 
             try {
                 await getNewToken();
-                console.log("đã reset");
                 return httpClient(originalRequest);
             } catch (error) {
                 return Promise.reject(error);

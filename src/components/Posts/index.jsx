@@ -12,31 +12,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 //import { CarouselSpacing } from "../ImageSlice";
 
-function Post({
-    author = {
-        avatar: "R",
-        username: "resiliencehq",
-        verified: false,
-    },
-    timestamp = "20 giờ",
-    content = "The Life-Saving Bed That Transforms Into a Disaster Survival Pod",
-    media = {
-        type: "video", // "video" | "image"
-        url: "",
-        thumbnail: "",
-    },
-    translate = {
-        show: true,
-        current: 1,
-        total: 3,
-    },
-    engagement = {
-        likes: "21,9K",
-        comments: "472",
-        reposts: "638",
-        shares: "2,9K",
-    },
-}) {
+function PostCard({ post }) {
+    const { user } = post;
     return (
         <div className="w-full border-b border-border pb-4">
             {/* Grid Container */}
@@ -46,14 +23,11 @@ function Post({
                     <div className="flex items-end -space-x-2">
                         <Avatar className="ring-2 ring-background">
                             <AvatarImage
-                                src={
-                                    author.avatar ||
-                                    "https://github.com/shadcn.png"
-                                }
-                                alt={author.username}
+                                src={user.avatar_url}
+                                alt={user.username}
                             />
                             <AvatarFallback>
-                                {author.username.charAt(0).toUpperCase()}
+                                {user.username.charAt(0).toUpperCase()}
                             </AvatarFallback>
                         </Avatar>
                         <Avatar className="h-4 w-4 bg-black ring-2 ring-background flex items-center justify-center">
@@ -66,9 +40,9 @@ function Post({
                 <div className="row-start-1 col-start-2 flex items-center gap-2 justify-between">
                     <div className="flex items-center gap-2 min-w-0">
                         <span className="font-semibold text-foreground truncate">
-                            {author.username}
+                            {user.username}
                         </span>
-                        {author.verified && (
+                        {user.verified && (
                             <svg
                                 className="w-4 h-4 text-blue-500 shrink-0"
                                 fill="currentColor"
@@ -82,7 +56,7 @@ function Post({
                             </svg>
                         )}
                         <span className="text-sm text-muted-foreground shrink-0">
-                            {timestamp}
+                            {post.created_at}
                         </span>
                     </div>
                     <button className="p-1 hover:bg-accent rounded-full transition-colors">
@@ -92,72 +66,73 @@ function Post({
 
                 {/* Post Content ở hàng 2 cột 2 (ngay dưới username) */}
                 <div className="row-start-2 col-start-2 mt-8">
-                    <p className="text-foreground mb-2">{content}</p>
-                    {translate.show && (
-                        <button className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                            Dịch {translate.current}/{translate.total}
-                        </button>
-                    )}
+                    <p className="text-foreground mb-2">{post.content}</p>
                 </div>
 
                 {/* Media ở hàng 3,4 cột 2 */}
 
                 <div className="row-start-3 row-span-2 col-start-2 w-full mb-3  ">
-                    <div className="flex overflow-x-auto ">
-                        <Splide
-                            aria-label="Ảnh slider"
-                            options={{
-                                type: "slide",
-                                arrows: false,
-                                pagination: false,
-                                perPage: 2,
-                                gap: "1rem",
-                                drag: true,
-                            }}
-                            className="cursor-grab active:cursor-grabbing"
-                        >
-                            <SplideSlide>
-                                <img
-                                    src="https://noithatbinhminh.com.vn/wp-content/uploads/2022/08/anh-dep-22.jpg.webp"
-                                    alt="Image 1"
-                                    className="w-full h-full object-cover rounded-2xl cursor-pointer "
-                                />
-                            </SplideSlide>
-                            <SplideSlide>
-                                <img
-                                    src="https://noithatbinhminh.com.vn/wp-content/uploads/2022/08/anh-dep-22.jpg.webp"
-                                    alt="Image 2"
-                                    className="w-full h-full object-cover rounded-2xl cursor-pointer"
-                                />
-                            </SplideSlide>
-                            <SplideSlide>
-                                <img
-                                    src="https://noithatbinhminh.com.vn/wp-content/uploads/2022/08/anh-dep-22.jpg.webp"
-                                    alt="Image 2"
-                                    className="w-full h-full object-cover rounded-2xl cursor-pointer"
-                                />
-                            </SplideSlide>
-                        </Splide>
-                    </div>
+                    {post.media_urls && (
+                        <div className="flex overflow-x-auto ">
+                            <Splide
+                                aria-label="Ảnh slider"
+                                options={{
+                                    type: "slide",
+                                    arrows: false,
+                                    pagination: false,
+                                    perPage: 2,
+                                    gap: "1rem",
+                                    drag: true,
+                                }}
+                                className="cursor-grab active:cursor-grabbing"
+                            >
+                                <SplideSlide>
+                                    <img
+                                        src="https://noithatbinhminh.com.vn/wp-content/uploads/2022/08/anh-dep-22.jpg.webp"
+                                        alt="Image 1"
+                                        className="w-full h-full object-cover rounded-2xl cursor-pointer "
+                                    />
+                                </SplideSlide>
+                                <SplideSlide>
+                                    <img
+                                        src="https://noithatbinhminh.com.vn/wp-content/uploads/2022/08/anh-dep-22.jpg.webp"
+                                        alt="Image 2"
+                                        className="w-full h-full object-cover rounded-2xl cursor-pointer"
+                                    />
+                                </SplideSlide>
+                                <SplideSlide>
+                                    <img
+                                        src="https://noithatbinhminh.com.vn/wp-content/uploads/2022/08/anh-dep-22.jpg.webp"
+                                        alt="Image 2"
+                                        className="w-full h-full object-cover rounded-2xl cursor-pointer"
+                                    />
+                                </SplideSlide>
+                            </Splide>
+                        </div>
+                    )}
                 </div>
 
                 {/* Engagement Bar dưới media (hàng 5 cột 2) */}
                 <div className="row-start-5 col-start-2 grid grid-cols-4 gap-2 sm:w-[50%]">
                     <button className="flex items-center justify-center gap-2 text-muted-foreground hover:text-foreground transition-colors group py-1">
                         <Heart className="w-5 h-5 group-hover:fill-red-500 group-hover:text-red-500 transition-colors" />
-                        <span className="text-sm">{engagement.likes}</span>
+                        <span className="text-sm">{post.likes_count}</span>
                     </button>
                     <button className="flex items-center justify-center gap-2 text-muted-foreground hover:text-foreground transition-colors py-1">
                         <MessageCircle className="w-5 h-5" />
-                        <span className="text-sm">{engagement.comments}</span>
+                        <span className="text-sm">{post.replies_count}</span>
                     </button>
                     <button className="flex items-center justify-center gap-2 text-muted-foreground hover:text-foreground transition-colors py-1">
                         <Repeat2 className="w-5 h-5" />
-                        <span className="text-sm">{engagement.reposts}</span>
+                        <span className="text-sm">
+                            {post.reposts_and_quotes_count}
+                        </span>
                     </button>
                     <button className="flex items-center justify-center gap-2 text-muted-foreground hover:text-foreground transition-colors py-1">
                         <Send className="w-5 h-5" />
-                        <span className="text-sm">{engagement.shares}</span>
+                        <span className="text-sm">
+                            {post.reposts_and_quotes_count}
+                        </span>
                     </button>
                 </div>
             </div>
@@ -165,4 +140,4 @@ function Post({
     );
 }
 
-export default Post;
+export default PostCard;
