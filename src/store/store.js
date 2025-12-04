@@ -5,21 +5,27 @@ import { persistReducer, persistStore } from "redux-persist";
 import { postSlice } from "@/features/posts/postSlice";
 
 const persistConfig = {
-    key: "root",
-    storage,
+  key: "root",
+  storage,
+  blacklist: [postSlice.reducerPath, authSlice.reducerPath],
+};
+const authPersistConfig = {
+  key: [authSlice.reducerPath],
+  storage: storage,
+  blacklist: ["fetching"],
 };
 const rootReducer = combineReducers({
-    auth: authSlice.reducer,
-    post: postSlice.reducer,
+  [authSlice.reducerPath]: persistReducer(authPersistConfig, authSlice.reducer),
+  [postSlice.reducerPath]: postSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = configureStore({
-    reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: false,
-        }),
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 const persistor = persistStore(store);
 export const reduxStore = { store, persistor };

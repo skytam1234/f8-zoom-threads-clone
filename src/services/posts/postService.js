@@ -1,11 +1,16 @@
 import http from "@/utils/http";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getListPost = createAsyncThunk("post/getListPost", async () => {
-    const res = await http.get("api/posts/feed");
-    return res.data;
-});
+export const getListPost = createAsyncThunk(
+  "post/getListPost",
+  async ({ limit = 20, page = 10 }) => {
+    const res = await http.get(
+      "/api/posts/feed?limit=" + limit + "&page=" + page
+    );
+    return res;
+  }
+);
 export const postThread = async (data) => {
-    const res = await http.post("/api/posts", data);
-    return res.data;
+  const res = await http.post("/api/posts", data);
+  return res.data;
 };
