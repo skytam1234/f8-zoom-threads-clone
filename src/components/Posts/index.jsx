@@ -9,6 +9,7 @@ import {
     Plus,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import formatDateTime from "@/utils/formatDate";
 
 //import { CarouselSpacing } from "../ImageSlice";
 
@@ -56,7 +57,7 @@ function PostCard({ post }) {
                             </svg>
                         )}
                         <span className="text-sm text-muted-foreground shrink-0">
-                            {post.created_at}
+                            {formatDateTime(post.created_at)}
                         </span>
                     </div>
                     <button className="p-1 hover:bg-accent rounded-full transition-colors">

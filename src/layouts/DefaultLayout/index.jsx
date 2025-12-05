@@ -19,13 +19,14 @@ function DefaultLayout() {
             onWheel={handleWheel}
         >
             <Header />
-            <div className="relative min-w-screen h-full">
+            <div className="relative flex justify-between min-w-screen h-full ">
                 <LeftSidebar />
                 <RightSidebar />
                 <Navigator />
-                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-full max-w-[640px]  h-[calc(100vh-80px)] sm:border-2  rounded-t-2xl overflow-hidden sm:shadow-sm">
+                <div className=" mx-auto mt-20 w-full max-w-[640px]  h-[calc(100vh-80px)] sm:border-2  rounded-t-2xl overflow-hidden sm:shadow-sm ">
                     <div
                         ref={scrollRef}
+                        id="scrollableDiv"
                         className="h-full w-full scrollbar-hidden overflow-y-auto"
                     >
                         <Outlet />
