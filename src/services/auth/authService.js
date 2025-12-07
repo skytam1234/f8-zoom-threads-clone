@@ -19,3 +19,10 @@ export const login = async (data) => {
 export const logout = async () => {
   await http.post("/api/auth/logout");
 };
+export const forgotPassword = createAsyncThunk(
+  "auth/forgotPassword",
+  async (data) => {
+    const res = await http.post("/api/auth/forgot-password", data);
+    return res;
+  }
+);

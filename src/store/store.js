@@ -12,7 +12,7 @@ const persistConfig = {
 const authPersistConfig = {
   key: [authSlice.reducerPath],
   storage: storage,
-  blacklist: ["fetching"],
+  blacklist: ["fetching", "forgotPass"],
 };
 const rootReducer = combineReducers({
   [authSlice.reducerPath]: persistReducer(authPersistConfig, authSlice.reducer),

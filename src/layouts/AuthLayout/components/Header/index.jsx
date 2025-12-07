@@ -1,6 +1,7 @@
 import { NavLink } from "react-router";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import decorHeader from "@/assets/img/img-login.avif";
 
 function Header() {
   return (
@@ -34,6 +35,13 @@ function Header() {
             src="https://static.cdninstagram.com/rsrc.php/yC/r/JlaY6JCPfe-.avif"
           />
         </div>
+      </div>
+      <div className="h-30 -translate-y-20">
+        <img
+          src={decorHeader}
+          alt="decorHeader"
+          className="hidden sm:block w-full "
+        />
       </div>
     </>
   );
