@@ -76,26 +76,26 @@ const getNewToken = async () => {
   });
 };
 
-// httpClient.interceptors.response.use(
-//   (response) => response,
-//   async (error) => {
-//     const originalRequest = error.config;
-//     const shouldRenewToken =
-//       error.response?.status === 401 && !originalRequest._retry;
+httpClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    const shouldRenewToken =
+      error.response?.status === 401 && !originalRequest._retry;
 
-//     if (shouldRenewToken) {
-//       originalRequest._retry = true;
+    if (shouldRenewToken) {
+      originalRequest._retry = true;
 
-//       try {
-//         await getNewToken();
-//         return httpClient(originalRequest);
-//       } catch (error) {
-//         return Promise.reject(error);
-//       }
-//     }
-//     return Promise.reject(error);
-//   }
-// );
+      try {
+        await getNewToken();
+        return httpClient(originalRequest);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 // ============================================
 

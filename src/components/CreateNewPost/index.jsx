@@ -115,7 +115,7 @@ function CreateNewPost({ onClose }) {
                     <Avatar className="ring-2 ring-background w-full rounded-full">
                       <AvatarImage
                         src={
-                          currentUser.avatar_url ||
+                          currentUser?.avatar_url ||
                           "https://github.com/shadcn.png"
                         }
                         alt="username"
@@ -127,7 +127,7 @@ function CreateNewPost({ onClose }) {
                 <div className="flex-1">
                   <div className="flex items-center justify-start px-4 max-w-100">
                     <div className="whitespace-nowrap font-bold text-black ">
-                      {currentUser.name}
+                      {currentUser?.name}
                     </div>
                     <ChevronRight />
                     <Input
@@ -237,7 +237,7 @@ function CreateNewPost({ onClose }) {
                   <Avatar className="ring-2 ring-background w-full rounded-full">
                     <AvatarImage
                       src={
-                        currentUser.avatar_url ||
+                        currentUser?.avatar_url ||
                         "https://github.com/shadcn.png"
                       }
                       alt="username"
