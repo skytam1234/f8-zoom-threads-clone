@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 function Header() {
   const currentUser = useCurrentUser();
   return (
-    <header className="md:hidden w-full h-[80px] right-0 z-50 bg-background border-b border-border">
+    <header className="md:hidden w-full h-[74px] right-0 z-50 bg-background ">
       <div className="max-w-full mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo ở giữa */}
         <div className="flex-1 flex justify-end ">

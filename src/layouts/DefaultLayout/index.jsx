@@ -3,38 +3,32 @@ import Header from "./components/Header";
 import Navigator from "@/components/Navigation";
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
-import { useRef } from "react";
+import WrapperHeader from "./components/Header/components";
 
 function DefaultLayout() {
-    const scrollRef = useRef(null);
-
-    const handleWheel = (e) => {
-        if (!scrollRef.current) return;
-        scrollRef.current.scrollTop += e.deltaY;
-    };
-
-    return (
-        <div
-            className="h-screen bg-layout-background  overflow-hidden"
-            onWheel={handleWheel}
-        >
-            <Header />
-            <div className="relative flex justify-between min-w-screen h-full ">
-                <LeftSidebar />
-                <RightSidebar />
-                <Navigator />
-                <div className=" mx-auto mt-20 w-full max-w-[640px]  h-[calc(100vh-80px)] sm:border-2  rounded-t-2xl overflow-hidden sm:shadow-sm ">
-                    <div
-                        ref={scrollRef}
-                        id="scrollableDiv"
-                        className="h-full w-full scrollbar-hidden overflow-y-auto"
-                    >
-                        <Outlet />
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="min-h-screen">
+      <div className="top-0 z-20 w-full sticky bg-layout-background">
+        <div className="flex justify-center  ">
+          <div className="w-full max-w-[640px] h-[60px] md:h-[74px] z-20 flex items-center justify-center">
+            <WrapperHeader>
+              <Header />
+            </WrapperHeader>
+          </div>
         </div>
-    );
+      </div>
+      <div className=" flex min-w-screen h-full bg-layout-background relative justify-center">
+        <LeftSidebar />
+        <RightSidebar />
+        <Navigator />
+        <div className=" flex justify-center bg-layout-main ">
+          <div className="w-full max-w-[640px]  min-h-screen">
+            <Outlet />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default DefaultLayout;

@@ -45,7 +45,7 @@ function LeftSidebar() {
     }
   };
   return (
-    <div className="hidden md:flex flex-col items-center w-18 fixed left-0 top-0 h-screen  z-100  ">
+    <div className="hidden md:flex flex-col items-center w-18  left-0 -top-[74px] h-screen fixed z-100 bg-layout-background  ">
       {/* Logo ở top */}
       <div className="w-full flex justify-center lg:justify-start  ">
         <NavLink to="/" className="flex items-center justify-end p-4  gap-3">
