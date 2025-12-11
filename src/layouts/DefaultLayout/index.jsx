@@ -4,8 +4,10 @@ import Navigator from "@/components/Navigation";
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
 import WrapperHeader from "./components/Header/components";
+import { useFetchListFollow } from "@/features/user/hooks";
 
 function DefaultLayout() {
+  useFetchListFollow();
   return (
     <div className="min-h-screen">
       <div className="top-0 z-20 w-full sticky bg-layout-background">

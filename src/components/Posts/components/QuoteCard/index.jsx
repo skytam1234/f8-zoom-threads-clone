@@ -1,40 +1,25 @@
-import { Splide, SplideSlide } from "@splidejs/react-splide";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar.jsx";
+import formatDateTime from "@/utils/formatDate";
+
 import {
   Heart,
   MessageCircle,
-  Repeat2,
-  Send,
   MoreHorizontal,
-  Play,
   Plus,
-  Check,
+  Repeat,
 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import formatDateTime from "@/utils/formatDate";
+import InterActionBar from "../InterActionBar/InterActionBar";
 
-import InterActionBar from "./components/InterActionBar/InterActionBar";
-import QuoteCard from "./components/QuoteCard";
-import PostImage from "./components/PostImage";
-import { useListFollow } from "@/features/user/hooks";
-import { followers, getListFollow } from "@/services/user/userServices";
-import { useDispatch } from "react-redux";
-import { useCurrentUser } from "@/features/auth/hooks";
+function QuoteCard({ originalPost }) {
+  const { user } = originalPost;
+  if (!originalPost) return null;
 
-function PostCard({ post }) {
-  const { user } = post;
-  const lisFollowUser = useListFollow();
-  const dispatch = useDispatch();
-  const currentUser = useCurrentUser();
-  const onHandle = async () => {
-    try {
-      await followers(post.user?.id);
-      dispatch(getListFollow(currentUser.id));
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
-    <div className="w-full border-b border-border pb-4">
+    <div className="w-full border rounded-3xl pb-4">
       {/* Grid Container */}
       <div className="grid grid-cols-[40px_1fr] grid-rows-[auto_auto_auto_auto_auto] gap-2 px-4 py-3">
         {/* Avatar ở hàng 1 cột 1 */}
@@ -46,20 +31,8 @@ function PostCard({ post }) {
                 {user.username.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
-            <Avatar className="h-4 w-4 bg-black ring-2 ring-background flex items-center justify-center hover:scale-[120%] cursor-auto">
-              <div
-                className="w-3 h-3 "
-                onClick={() => {
-                  onHandle();
-                }}
-              >
-                {lisFollowUser &&
-                lisFollowUser.find((item) => user.id === item.id) ? (
-                  <Check className="w-3 h-3 text-white" />
-                ) : (
-                  <Plus className="w-3 h-3 text-white" />
-                )}
-              </div>
+            <Avatar className="h-4 w-4 bg-black ring-2 ring-background flex items-center justify-center">
+              <Plus className="w-3 h-3 text-white" />
             </Avatar>
           </div>
         </div>
@@ -83,7 +56,7 @@ function PostCard({ post }) {
               </svg>
             )}
             <span className="text-sm text-muted-foreground shrink-0">
-              {formatDateTime(post.created_at)}
+              {formatDateTime(originalPost.created_at)}
             </span>
           </div>
           <button className="p-1 hover:bg-accent rounded-full transition-colors">
@@ -93,23 +66,25 @@ function PostCard({ post }) {
 
         {/* Post Content ở hàng 2 cột 2 (ngay dưới username) */}
         <div className="row-start-2 col-start-2 mt-8">
-          <p className="text-foreground mb-2">{post.content}</p>
-          {post.original_post && (
-            <QuoteCard originalPost={post.original_post} />
+          <p className="text-foreground mb-2">{originalPost.content}</p>
+          {originalPost?.original_post && (
+            <QuoteCard originalPost={originalPost?.original_post} />
           )}
         </div>
 
         {/* Media ở hàng 3,4 cột 2 */}
 
         <div className="row-start-3 row-span-2 col-start-2 w-full mb-3  ">
-          {post.media_urls[0] && <PostImage post={post} />}
+          {originalPost?.media_urls && (
+            <div className="flex overflow-x-auto ">Anhr</div>
+          )}
         </div>
 
         {/* Engagement Bar dưới media (hàng 5 cột 2) */}
-        <InterActionBar post={post} />
+        {/* <InterActionBar post={originalPost} /> */}
       </div>
     </div>
   );
 }
 
-export default PostCard;
+export default QuoteCard;
