@@ -27,6 +27,7 @@ export const postSlice = createSlice({
                 state.list = [...state.list, ...action.payload.data];
                 state.error = null;
                 state.loading = false;
+                console.log(state.list);
             })
             .addCase(getListPost.rejected, (state, action) => {
                 state.loading = false;
