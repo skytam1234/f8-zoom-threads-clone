@@ -1,24 +1,24 @@
-import { getListFollow } from "@/services/user/userServices";
+import {
+    getListFollowers,
+    getListFollowing,
+} from "@/services/user/userServices";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  list: [],
+    followings: [],
+    followers: [],
 };
 export const userSlice = createSlice({
-  name: "user",
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(getListFollow.fulfilled, (state, action) => {
-        state.list = action.payload;
-      })
-      .addCase(getListFollow.rejected, (state, action) => {
-        state.loading = false;
-        state.error =
-          action.payload ||
-          action.error?.message ||
-          "Có lỗi xảy ra khi tải bài viết";
-      });
-  },
+    name: "user",
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(getListFollowing.fulfilled, (state, action) => {
+                state.followings = action.payload;
+            })
+            .addCase(getListFollowers.fulfilled, (state, action) => {
+                state.followers = action.payload;
+            });
+    },
 });

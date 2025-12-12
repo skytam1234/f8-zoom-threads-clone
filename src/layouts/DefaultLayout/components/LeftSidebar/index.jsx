@@ -67,7 +67,7 @@ function LeftSidebar() {
         }
     };
     return (
-        <div className="hidden md:flex flex-col items-center justify-between w-18  left-0 top-0 h-screen fixed z-100   bg-layout-background">
+        <div className="hidden md:flex flex-col items-center justify-between w-18  left-0 top-0 h-screen fixed z-21   bg-layout-background">
             {/* Logo ở top */}
             <div className="w-full flex justify-center lg:justify-start  ">
                 <NavLink

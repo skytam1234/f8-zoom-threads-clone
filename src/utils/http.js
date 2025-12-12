@@ -10,15 +10,18 @@ export const httpClient = axios.create({
     },
 });
 
-httpClient.interceptors.request.use((config) => {
-    const access_token = localStorage.getItem("access_token");
-    console.log(access_token);
-    if (access_token) {
-        config.headers.set("Authorization", `Bearer ${access_token}`);
+httpClient.interceptors.request.use(
+    (config) => {
+        const accessToken = localStorage.getItem("access_token");
+        if (accessToken) {
+            config.headers["Authorization"] = `Bearer ${accessToken}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
     }
-
-    return config;
-});
+);
 
 // ============================================
 // PHẦN 3: XỬ LÝ LÀM MỚI TOKEN TỰ ĐỘNG
