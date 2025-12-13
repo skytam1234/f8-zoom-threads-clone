@@ -3,6 +3,7 @@ import {
     getListFollowing,
 } from "@/services/user/userServices";
 import { createSlice } from "@reduxjs/toolkit";
+import { authSlice } from "../auth/authSlice";
 
 const initialState = {
     followings: [],

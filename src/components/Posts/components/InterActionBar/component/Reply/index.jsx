@@ -24,7 +24,12 @@ function Reply({ post }) {
                         setIsOpen(false);
                     }}
                 >
-                    <ReplyModal post={post} />
+                    <ReplyModal
+                        post={post}
+                        onClose={() => {
+                            setIsOpen(false);
+                        }}
+                    />
                 </Modal>
             </div>
         </>

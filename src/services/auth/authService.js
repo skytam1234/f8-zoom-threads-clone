@@ -23,7 +23,9 @@ export const login = async (data) => {
     return res.data;
 };
 export const logout = async () => {
-    await http.post("auth/logout");
+    await http.post("auth/logout", {}, {
+        _skipRefresh: true, // Bỏ qua refresh token cho logout
+    });
 };
 
 export const forgotPassword = createAsyncThunk(

@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { NavLink, useLocation, useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "@/components/Modal";
 import {
     DropdownMenu,
@@ -26,9 +26,11 @@ import {
 import { Button } from "@/components/ui/button";
 import CreateNewPost from "@/components/CreateNewPost";
 import { useCurrentUser } from "@/features/auth/hooks";
-import { getCurrentUser, logout } from "@/services/auth/authService";
+import { logout } from "@/services/auth/authService";
 import { useDispatch } from "react-redux";
+
 import { setThemeDark, setThemeLight } from "@/features/theme/theme";
+import { authSlice } from "@/features/auth/authSlice";
 
 function LeftSidebar() {
     const location = useLocation();
@@ -58,12 +60,13 @@ function LeftSidebar() {
     const logoutHandle = async () => {
         try {
             await logout();
-            localStorage.clear();
-            dispatch(getCurrentUser());
         } catch (error) {
-            console.log(error);
+            console.log("Logout error:", error);
+            // Ngay cả khi có lỗi (token hết hạn), vẫn clear và logout
         } finally {
-            navigate("/");
+            localStorage.clear();
+            dispatch(authSlice.actions.setCurrentUser(null));
+            navigate("/login");
         }
     };
     return (
