@@ -5,11 +5,16 @@ import { persistReducer, persistStore } from "redux-persist";
 import { postSlice } from "@/features/posts/postSlice";
 import { themeSlice } from "@/features/theme/theme";
 import { userSlice } from "@/features/user/userSlice";
+import { searchSlice } from "@/features/search/searchSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: [postSlice.reducerPath, authSlice.reducerPath],
+  blacklist: [
+    postSlice.reducerPath,
+    authSlice.reducerPath,
+    searchSlice.reducerPath,
+  ],
 };
 const authPersistConfig = {
   key: [authSlice.reducerPath],
@@ -21,6 +26,7 @@ const rootReducer = combineReducers({
   [postSlice.reducerPath]: postSlice.reducer,
   [themeSlice.reducerPath]: themeSlice.reducer,
   [userSlice.reducerPath]: userSlice.reducer,
+  [searchSlice.reducerPath]: searchSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

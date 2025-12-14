@@ -24,10 +24,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { useCallback } from "react";
 import { useCurrentUser, useFetchCurrentUser } from "@/features/auth/hooks";
 
-import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-import { getListPost, postThread } from "@/services/posts/postService";
+import {
+  formData,
+  getListPost,
+  postThread,
+} from "@/services/posts/postService";
 import { useDispatch } from "react-redux";
+import { resetFeed } from "@/features/posts/postSlice";
 
 function CreateNewPost({ onClose }) {
   const currentUser = useCurrentUser();
@@ -50,8 +54,8 @@ function CreateNewPost({ onClose }) {
   const handle = async (data) => {
     try {
       const res = await postThread(data);
-      disPatch(getListPost());
-      console.log(res);
+      disPatch(resetFeed());
+      disPatch(getListPost({ limit: 20, page: 1 }));
     } catch (error) {
       console.log(error);
     } finally {
@@ -63,7 +67,11 @@ function CreateNewPost({ onClose }) {
     <>
       <TooltipProvider>
         <div className="border rounded-md">
-          <form onSubmit={handleSubmit(handle)} className="space-y-4 p-4">
+          <form
+            onSubmit={handleSubmit(handle)}
+            className="space-y-4 p-4"
+            encType="multipart/form-data"
+          >
             <div className=" w-[640px] h-20 flex items-center justify-between p-4">
               <div
                 onClick={() => {
@@ -153,8 +161,10 @@ function CreateNewPost({ onClose }) {
                       <input
                         id="media"
                         type="file"
-                        className="hidden"
+                        className=""
                         name="media"
+                        multiple
+                        {...register("media")}
                       />
                     </div>
                     <div>
