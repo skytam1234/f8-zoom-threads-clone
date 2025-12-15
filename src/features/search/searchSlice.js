@@ -39,6 +39,10 @@ export const searchSlice = createSlice({
         state.loading = false;
         console.log(state.users);
       })
+      .addCase(search.rejected, (state) => {
+        state.loading = false;
+      })
+
       .addCase(getUserSuggestions.rejected, (state) => {
         state.loading = false;
       })
@@ -50,10 +54,8 @@ export const searchSlice = createSlice({
 
         state.users = [...state.users, ...action.payload.data];
         state.loading = false;
-      })
-      .addCase(search.rejected, (state) => {
-        state.loading = false;
       });
+      
   },
 });
 export const { resetUsers, updateFollowUser } = searchSlice.actions;
