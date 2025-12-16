@@ -41,5 +41,9 @@ export const forgotPassword = createAsyncThunk(
 );
 export const resetPassword = async (data) => {
     const res = await http.post("auth/reset-password", data);
-    return res.data;
+    return res;
+};
+export const verifyEmail = async (data) => {
+    const res = await http.post("auth/verify-email", data);
+    return res;
 };

@@ -5,18 +5,19 @@ import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react({
-      babel: {
-        plugins: [["babel-plugin-react-compiler"]],
-      },
-    }),
-    tailwindcss(),
-  ],
-  resolve: {
-    alias: {
-      // eslint-disable-next-line no-undef
-      "@": path.resolve(__dirname, "./src"),
+    plugins: [
+        react({
+            babel: {
+                plugins: [["babel-plugin-react-compiler"]],
+            },
+        }),
+        tailwindcss(),
+    ],
+    base: "/f8-zoom-threads-clone/",
+    resolve: {
+        alias: {
+            // eslint-disable-next-line no-undef
+            "@": path.resolve(__dirname, "./src"),
+        },
     },
-  },
 });

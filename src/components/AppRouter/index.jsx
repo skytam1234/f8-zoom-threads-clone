@@ -4,15 +4,17 @@ import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
 
 import HomePage from "@/pages/HomePage";
-import ProfilePage from "@/pages/ProfilePage";
+
 import SearchPage from "@/pages/SearchPage";
 
-import { Route, BrowserRouter as Router, Routes } from "react-router";
+import { Route, HashRouter as Router, Routes } from "react-router";
 import PrivateRoute from "../PrivateRoute";
 import ForgotPassword from "@/pages/Auth/ForgotPassword";
 import Activity from "@/pages/Activity";
 import Profile from "@/pages/Profile";
 import ResetPassword from "@/pages/Auth/ResetPassword/ResetPassword";
+import NotFound from "@/pages/NotFound";
+import VerifyEmail from "@/pages/Auth/VerifyEmail/VerifyEmail";
 
 function AppRoute() {
     return (
@@ -31,11 +33,14 @@ function AppRoute() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/verify-email" element={<VerifyEmail />} />
                     <Route
                         path="/forgot-password"
                         element={<ForgotPassword />}
                     />
                 </Route>
+
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </Router>
     );
