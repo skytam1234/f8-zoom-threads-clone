@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const baseURL = import.meta.env.VITE_BASE_API;
-export const baseURL = "https://threads.f8team.dev/api/";
+export const baseURL = import.meta.env.VITE_BASE_API;
+console.log(baseURL);
 
 export const httpClient = axios.create({
     baseURL,
