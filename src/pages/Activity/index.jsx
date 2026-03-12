@@ -1,4 +1,4 @@
-import ContentContainer from "@/components/Common/ContentContainer/index.jsx";
+import ContentContainer from "@/components/common/ContentContainer/index.jsx";
 
 function Activity() {
     return (
